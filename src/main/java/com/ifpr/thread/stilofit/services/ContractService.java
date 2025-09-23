@@ -3,6 +3,7 @@ package com.ifpr.thread.stilofit.services;
 import com.ifpr.thread.stilofit.dto.ContractRequestDTO;
 import com.ifpr.thread.stilofit.dto.ContractResponseDTO;
 import com.ifpr.thread.stilofit.dto.mapper.ContractMapper;
+import com.ifpr.thread.stilofit.exceptions.ContractNameAlreadyExistsException;
 import com.ifpr.thread.stilofit.exceptions.NotFoundException;
 import com.ifpr.thread.stilofit.models.Contract;
 import com.ifpr.thread.stilofit.repositories.ContractRepository;
@@ -19,6 +20,9 @@ public class ContractService {
     private final ContractMapper mapper;
 
     public ContractResponseDTO create(ContractRequestDTO dto) {
+        if (repository.existsByName(dto.getName())) {
+            throw new ContractNameAlreadyExistsException("Já existe um contrato com esse nome.");
+        }
         Contract contract = mapper.toEntity(dto);
         contract = repository.save(contract);
         return mapper.toDTO(contract);
@@ -51,4 +55,5 @@ public class ContractService {
         }
         repository.deleteById(id);
     }
+
 }
