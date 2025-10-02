@@ -33,11 +33,11 @@ public class Sale {
     @Column(name = "client_id")
     @ManyToOne
     @JoinColumn(name = "id_clients")
-    @NotNull(message = "{validation.ClientID.notnull}")
+    @NotNull(message = "{validation.clientId.notnull}")
     private int clientId;
 
     @Column(name = "contracts_ids")
-    @OneToMany(mappedBy = "sales", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "sales", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Contract> contractsIds;
 
     @Column(name = "totalAmount")
