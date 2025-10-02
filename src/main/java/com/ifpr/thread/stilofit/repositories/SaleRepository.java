@@ -10,6 +10,6 @@ import com.ifpr.thread.stilofit.models.Sale;
 
 public interface SaleRepository extends JpaRepository<Sale, Long> {
 
-    @Query("SELECT s FROM Sale s WHERE s.clientId = :clientId")
-    Page<Sale> findByClientId(@Param("clientId") int clientId, Pageable pageable);
+    @Query("SELECT s FROM Sale s WHERE s.client = :client")
+    Page<Sale> findByClient(@Param("client") int client, Pageable pageable);
 }

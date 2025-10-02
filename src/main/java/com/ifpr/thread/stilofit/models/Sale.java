@@ -32,13 +32,13 @@ public class Sale {
 
     @Column(name = "client_id")
     @ManyToOne
-    @JoinColumn(name = "id_clients")
-    @NotNull(message = "{validation.clientId.notnull}")
-    private int clientId;
+    @JoinColumn(name = "id_client")
+    @NotNull(message = "{validation.client.notnull}")
+    private Client client;
 
     @Column(name = "contracts_ids")
     @OneToMany(mappedBy = "sales", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Contract> contractsIds;
+    private List<Contract> contracts;
 
     @Column(name = "totalAmount")
     @NotNull(message = "{validation.totalAmount.notnull}")
