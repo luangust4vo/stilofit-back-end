@@ -7,7 +7,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ifpr.thread.stilofit.models.Client;
 import com.ifpr.thread.stilofit.models.Contract;
 
+import lombok.Data;
+
+@Data
 public class SaleResponseDTO {
+
     private int id;
     private Client client;
     private List<Contract> contracts;

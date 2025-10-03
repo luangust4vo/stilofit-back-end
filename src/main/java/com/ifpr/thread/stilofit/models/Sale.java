@@ -19,6 +19,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
@@ -42,7 +43,8 @@ public class Sale {
 
     @Column(name = "totalAmount")
     @NotNull(message = "{validation.totalAmount.notnull}")
-    private double totalAmount;
+    @Positive(message = "{validation.totalAmount.positive}")
+    private Double totalAmount;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
