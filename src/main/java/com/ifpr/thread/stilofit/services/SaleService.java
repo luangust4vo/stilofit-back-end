@@ -62,8 +62,9 @@ public class SaleService {
         Sale existSale = saleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Venda não encontrada com id: " + id));
         existSale.setClient(client);
-        existSale.setContracts(contracts);
         existSale.setTotalAmount(saleRequestDTO.getTotalAmount());
+        existSale.getContracts().clear();
+        existSale.getContracts().addAll(contracts);
         Sale updateSale = saleRepository.save(existSale);
         return updateSale;
     }

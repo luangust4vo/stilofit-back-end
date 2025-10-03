@@ -37,7 +37,7 @@ public class Sale {
     private Client client;
 
     @Column(name = "contracts_ids")
-    @OneToMany(mappedBy = "id", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "id", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private List<Contract> contracts;
 
     @Column(name = "totalAmount")
