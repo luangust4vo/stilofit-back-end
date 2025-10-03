@@ -29,7 +29,7 @@ public class SaleService {
     public Sale create(SaleRequestDTO saleRequestDTO) {
         validateSaleFields(saleRequestDTO);
         Client client = clientRepository.findById(saleRequestDTO.getClientId())
-            .orElseThrow(() -> new NotFoundException("Cliente não encontrado com id: " + saleRequestDTO.getClientId()));
+                .orElseThrow(() -> new NotFoundException("Cliente não encontrado com id: " + saleRequestDTO.getClientId()));
         List<Contract> contracts = contractRepository.findAllById(saleRequestDTO.getContractsIds());
         Sale sale = new Sale();
         sale.setClient(client);
@@ -48,10 +48,16 @@ public class SaleService {
         return saleRepository.findAll(pageable);
     }
 
+    public Page<Sale> findByClient(SaleRequestDTO saleRequestDTO, Pageable pageable) {
+        Client client = clientRepository.findById(saleRequestDTO.getClientId())
+                .orElseThrow(() -> new NotFoundException("Cliente não encontrado com id: " + saleRequestDTO.getClientId()));
+        return saleRepository.findByClient(client, pageable);
+    }
+
     public Sale update(Long id, SaleRequestDTO saleRequestDTO) {
         validateSaleFields(saleRequestDTO);
         Client client = clientRepository.findById(saleRequestDTO.getClientId())
-            .orElseThrow(() -> new NotFoundException("Cliente não encontrado com id: " + saleRequestDTO.getClientId()));
+                .orElseThrow(() -> new NotFoundException("Cliente não encontrado com id: " + saleRequestDTO.getClientId()));
         List<Contract> contracts = contractRepository.findAllById(saleRequestDTO.getContractsIds());
         Sale existSale = saleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Venda não encontrada com id: " + id));
