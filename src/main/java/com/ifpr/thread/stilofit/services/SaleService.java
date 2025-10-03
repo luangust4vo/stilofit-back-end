@@ -48,9 +48,9 @@ public class SaleService {
         return saleRepository.findAll(pageable);
     }
 
-    public Page<Sale> findByClient(SaleRequestDTO saleRequestDTO, Pageable pageable) {
-        Client client = clientRepository.findById(saleRequestDTO.getClientId())
-                .orElseThrow(() -> new NotFoundException("Cliente não encontrado com id: " + saleRequestDTO.getClientId()));
+    public Page<Sale> findByClient(Long clientId, Pageable pageable) {
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() -> new NotFoundException("Cliente não encontrado com id: " + clientId));
         return saleRepository.findByClient(client, pageable);
     }
 

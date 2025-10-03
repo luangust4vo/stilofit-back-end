@@ -18,8 +18,10 @@ import org.springframework.data.web.PageableDefault;
 import com.ifpr.thread.stilofit.dto.SaleRequestDTO;
 import com.ifpr.thread.stilofit.dto.SaleResponseDTO;
 import com.ifpr.thread.stilofit.exceptions.ErrorMessage;
+import com.ifpr.thread.stilofit.models.Client;
 import com.ifpr.thread.stilofit.services.SaleService;
 import com.ifpr.thread.stilofit.models.Sale;
+import com.ifpr.thread.stilofit.services.ClientService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,6 +37,7 @@ import lombok.AllArgsConstructor;
 public class SaleController {
 
     private final SaleService saleService;
+    private final ClientService clientService;
 
     @Operation(summary = "Create a new sale", description = "Creates a new sale with the provided details.", responses = {
         @ApiResponse(responseCode = "201", description = "Sale created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SaleResponseDTO.class))),
@@ -66,6 +69,18 @@ public class SaleController {
     @GetMapping("/list-all-sales")
     public ResponseEntity<Page<SaleListDTO>> findAll(@PageableDefault(size = 30, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Sale> sales = saleService.findAll(pageable);
+        Page<SaleListDTO> saleResponses = sales.map(SaleMapper::toList);
+        return ResponseEntity.ok(saleResponses);
+    }
+
+    @Operation(summary = "Find sales by Client", description = "Retrieves a paginated list of sales by client.", responses = {
+        @ApiResponse(responseCode = "200", description = "Sales found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SaleResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "No sales found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+    })
+    @GetMapping("/list-by-client/{id}")
+    public ResponseEntity<Page<SaleListDTO>> findByClient(@PathVariable Long clientId, @PageableDefault(size = 30, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Sale> sales = saleService.findByClient(clientId, pageable);
         Page<SaleListDTO> saleResponses = sales.map(SaleMapper::toList);
         return ResponseEntity.ok(saleResponses);
     }
