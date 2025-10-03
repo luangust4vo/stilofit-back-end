@@ -31,14 +31,13 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "client_id")
     @ManyToOne
     @JoinColumn(name = "id_client")
     @NotNull(message = "{validation.client.notnull}")
     private Client client;
 
     @Column(name = "contracts_ids")
-    @OneToMany(mappedBy = "sales", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "id", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Contract> contracts;
 
     @Column(name = "totalAmount")
