@@ -17,6 +17,8 @@ import org.springframework.data.web.PageableDefault;
 
 import com.ifpr.thread.stilofit.dto.SaleRequestDTO;
 import com.ifpr.thread.stilofit.dto.SaleResponseDTO;
+import com.ifpr.thread.stilofit.dto.list.SaleListDTO;
+import com.ifpr.thread.stilofit.dto.mapper.SaleMapper;
 import com.ifpr.thread.stilofit.exceptions.ErrorMessage;
 import com.ifpr.thread.stilofit.services.SaleService;
 import com.ifpr.thread.stilofit.models.Sale;

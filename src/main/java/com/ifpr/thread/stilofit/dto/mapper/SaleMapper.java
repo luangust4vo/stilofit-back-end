@@ -1,6 +1,7 @@
 package com.ifpr.thread.stilofit.dto.mapper;
 
 import com.ifpr.thread.stilofit.dto.SaleResponseDTO;
+import com.ifpr.thread.stilofit.dto.list.SaleListDTO;
 import com.ifpr.thread.stilofit.models.Sale;
 
 public class SaleMapper {
