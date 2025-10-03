@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class SaleResponseDTO {
 
-    private int id;
+    private Long id;
     private Client client;
     private List<Contract> contracts;
     private double totalAmount;

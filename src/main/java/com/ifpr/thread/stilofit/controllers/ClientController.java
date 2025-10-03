@@ -15,9 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 
-import com.ifpr.thread.stilofit.dto.ClientListDTO;
 import com.ifpr.thread.stilofit.dto.ClientRequestDTO;
 import com.ifpr.thread.stilofit.dto.ClientResponseDTO;
+import com.ifpr.thread.stilofit.dto.list.ClientListDTO;
 import com.ifpr.thread.stilofit.dto.mapper.ClientMapper;
 import com.ifpr.thread.stilofit.exceptions.ErrorMessage;
 import com.ifpr.thread.stilofit.services.ClientService;
