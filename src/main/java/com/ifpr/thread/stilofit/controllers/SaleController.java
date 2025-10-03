@@ -18,10 +18,8 @@ import org.springframework.data.web.PageableDefault;
 import com.ifpr.thread.stilofit.dto.SaleRequestDTO;
 import com.ifpr.thread.stilofit.dto.SaleResponseDTO;
 import com.ifpr.thread.stilofit.exceptions.ErrorMessage;
-import com.ifpr.thread.stilofit.models.Client;
 import com.ifpr.thread.stilofit.services.SaleService;
 import com.ifpr.thread.stilofit.models.Sale;
-import com.ifpr.thread.stilofit.services.ClientService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -37,7 +35,6 @@ import lombok.AllArgsConstructor;
 public class SaleController {
 
     private final SaleService saleService;
-    private final ClientService clientService;
 
     @Operation(summary = "Create a new sale", description = "Creates a new sale with the provided details.", responses = {
         @ApiResponse(responseCode = "201", description = "Sale created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SaleResponseDTO.class))),
