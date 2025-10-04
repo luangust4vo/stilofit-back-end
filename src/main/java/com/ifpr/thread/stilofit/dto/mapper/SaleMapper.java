@@ -10,7 +10,7 @@ public class SaleMapper {
         SaleResponseDTO dto = new SaleResponseDTO();
         dto.setId(sale.getId());
         dto.setClient(ClientMapper.toList(sale.getClient()));
-        dto.setContracts(sale.getContracts());
+        dto.setContracts(ContractMapper.toList(sale.getContracts()));
         dto.setCreatedAt(sale.getCreatedAt());
         dto.setTotalAmount(sale.getTotalAmount());
         dto.setUpdatedAt(sale.getUpdatedAt());
