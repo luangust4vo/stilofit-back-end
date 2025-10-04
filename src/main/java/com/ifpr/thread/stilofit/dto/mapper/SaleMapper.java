@@ -9,7 +9,7 @@ public class SaleMapper {
     public static SaleResponseDTO toResponse(Sale sale) {
         SaleResponseDTO dto = new SaleResponseDTO();
         dto.setId(sale.getId());
-        dto.setClient(sale.getClient());
+        dto.setClient(ClientMapper.toList(sale.getClient()));
         dto.setContracts(sale.getContracts());
         dto.setCreatedAt(sale.getCreatedAt());
         dto.setTotalAmount(sale.getTotalAmount());
@@ -20,7 +20,7 @@ public class SaleMapper {
     public static SaleListDTO toList(Sale sale) {
         SaleListDTO dto = new SaleListDTO();
         dto.setId(sale.getId());
-        dto.setClient(sale.getClient());
+        dto.setClient(ClientMapper.toList(sale.getClient()));
         dto.setCreatedAt(sale.getCreatedAt());
         dto.setTotalAmount(sale.getTotalAmount());
         return dto;

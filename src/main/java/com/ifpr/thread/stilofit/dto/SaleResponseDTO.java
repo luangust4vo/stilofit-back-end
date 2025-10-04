@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.ifpr.thread.stilofit.models.Client;
+import com.ifpr.thread.stilofit.dto.list.ClientListDTO;
 import com.ifpr.thread.stilofit.models.Contract;
 
 import lombok.Data;
@@ -13,7 +13,7 @@ import lombok.Data;
 public class SaleResponseDTO {
 
     private Long id;
-    private Client client;
+    private ClientListDTO client;
     private List<Contract> contracts;
     private double totalAmount;
     @JsonFormat(pattern = "dd/MM/yyyy-HH:mm:ss")
