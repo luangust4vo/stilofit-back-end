@@ -78,8 +78,8 @@ public class SaleController {
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
     })
     @GetMapping("/list-by-client/{id}")
-    public ResponseEntity<Page<SaleListDTO>> findByClient(@PathVariable Long clientId, @PageableDefault(size = 30, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Sale> sales = saleService.findByClient(clientId, pageable);
+    public ResponseEntity<Page<SaleListDTO>> findByClient(@PathVariable Long id, @PageableDefault(size = 30, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Sale> sales = saleService.findByClient(id, pageable);
         Page<SaleListDTO> saleResponses = sales.map(SaleMapper::toList);
         return ResponseEntity.ok(saleResponses);
     }
