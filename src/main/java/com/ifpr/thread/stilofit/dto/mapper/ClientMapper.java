@@ -1,7 +1,7 @@
 package com.ifpr.thread.stilofit.dto.mapper;
 
-import com.ifpr.thread.stilofit.dto.ClientListDTO;
 import com.ifpr.thread.stilofit.dto.ClientResponseDTO;
+import com.ifpr.thread.stilofit.dto.list.ClientListDTO;
 import com.ifpr.thread.stilofit.models.Client;
 
 public class ClientMapper {
