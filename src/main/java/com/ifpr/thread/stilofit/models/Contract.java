@@ -31,6 +31,7 @@ public class Contract {
     private String timeMin;
     private String timeMax;
 
-    @ElementCollection
-    private List<String> weekdays;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "week_days_id", referencedColumnName = "id")
+    private WeekDays weekDays;
 }
