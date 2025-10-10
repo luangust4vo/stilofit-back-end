@@ -1,5 +1,6 @@
 package com.ifpr.thread.stilofit.dto.mapper;
 
+import com.ifpr.thread.stilofit.models.WeekDays;
 import com.ifpr.thread.stilofit.dto.ContractRequestDTO;
 import com.ifpr.thread.stilofit.dto.ContractResponseDTO;
 import com.ifpr.thread.stilofit.models.Contract;
@@ -44,8 +45,8 @@ public class ContractMapper {
         return dto;
     }
 
-    private com.ifpr.thread.stilofit.models.WeekDays mapWeekDaysFromArray(String[] weekdays) {
-        com.ifpr.thread.stilofit.models.WeekDays weekDays = new com.ifpr.thread.stilofit.models.WeekDays();
+    private WeekDays mapWeekDaysFromArray(String[] weekdays) {
+        WeekDays weekDays = new  WeekDays();
         if (weekdays != null) {
             for (String day : weekdays) {
                 switch (day.toLowerCase()) {
