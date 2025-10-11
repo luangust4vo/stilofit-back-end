@@ -6,4 +6,6 @@ import com.ifpr.thread.stilofit.models.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     boolean existsByCpf(String cpf);
+
+    boolean existsByProfessionalRegister(String professionalRegister);
 }

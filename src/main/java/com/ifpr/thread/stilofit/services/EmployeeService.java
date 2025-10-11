@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.ifpr.thread.stilofit.dto.EmployeeRequestDTO;
 import com.ifpr.thread.stilofit.exceptions.CpfAlreadyRegisteredException;
+import com.ifpr.thread.stilofit.exceptions.ProfessionalRegisterAlreadyExistsException;
 import com.ifpr.thread.stilofit.models.Employee;
 import com.ifpr.thread.stilofit.repositories.EmployeeRepository;
 
@@ -17,6 +18,9 @@ public class EmployeeService {
     public Employee create(EmployeeRequestDTO employeeRequestDTO) {
         if (employeeRepository.existsByCpf(employeeRequestDTO.getCpf())) {
             throw new CpfAlreadyRegisteredException("CPF já cadastrado");
+        }
+        if (employeeRepository.existsByProfessionalRegister(employeeRequestDTO.getProfessionalRegister())) {
+            throw new ProfessionalRegisterAlreadyExistsException("Registro profissional já cadastrado");
         }
         Employee employee = new Employee();
         employee.setName(employeeRequestDTO.getName());
