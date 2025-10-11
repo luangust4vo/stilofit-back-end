@@ -1,6 +1,5 @@
 package com.ifpr.thread.stilofit.dto;
 
-import java.io.ObjectInputFilter.Status;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -12,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ifpr.thread.stilofit.models.enums.Gender;
 import com.ifpr.thread.stilofit.models.enums.MaritalStatus;
 import com.ifpr.thread.stilofit.models.enums.Shift;
+import com.ifpr.thread.stilofit.models.enums.Status;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
