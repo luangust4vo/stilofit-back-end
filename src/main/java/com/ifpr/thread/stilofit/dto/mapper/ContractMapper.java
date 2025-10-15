@@ -4,6 +4,9 @@ import com.ifpr.thread.stilofit.models.WeekDays;
 import com.ifpr.thread.stilofit.dto.ContractRequestDTO;
 import com.ifpr.thread.stilofit.dto.ContractResponseDTO;
 import com.ifpr.thread.stilofit.models.Contract;
+
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -45,7 +48,7 @@ public class ContractMapper {
         return dto;
     }
 
-    private WeekDays mapWeekDaysFromArray(String[] weekdays) {
+    private WeekDays mapWeekDaysFromArray(List<String> weekdays) {
         WeekDays weekDays = new  WeekDays();
         if (weekdays != null) {
             for (String day : weekdays) {

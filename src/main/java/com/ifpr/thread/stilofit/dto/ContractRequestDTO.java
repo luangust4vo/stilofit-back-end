@@ -36,5 +36,5 @@ public class ContractRequestDTO {
     private List<String> classRoms;
     private String timeMin;
     private String timeMax;
-    private String[] weekdays;
+    private List<String> weekdays;
 }
