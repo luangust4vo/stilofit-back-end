@@ -1,12 +1,11 @@
 package com.ifpr.thread.stilofit.dto.mapper;
 
-import java.util.List;
-
+import com.ifpr.thread.stilofit.models.WeekDays;
 import com.ifpr.thread.stilofit.dto.ContractRequestDTO;
 import com.ifpr.thread.stilofit.dto.ContractResponseDTO;
 import com.ifpr.thread.stilofit.models.Contract;
 
-import java.util.stream.Collectors;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -28,7 +27,7 @@ public class ContractMapper {
                 .classRoms(dto.getClassRoms())
                 .timeMin(dto.getTimeMin())
                 .timeMax(dto.getTimeMax())
-                .weekdays(dto.getWeekdays())
+                .weekDays(mapWeekDaysFromArray(dto.getWeekdays()))
                 .build();
     }
 
@@ -47,24 +46,53 @@ public class ContractMapper {
         dto.setClassRoms(contract.getClassRoms());
         dto.setTimeMin(contract.getTimeMin());
         dto.setTimeMax(contract.getTimeMax());
-        dto.setWeekdays(contract.getWeekdays());
+        dto.setWeekdays(mapWeekDaysToArray(contract.getWeekDays()));
         return dto;
     }
 
-    public static ContractListDTO toList(Contract contract) {
+    private WeekDays mapWeekDaysFromArray(List<String> weekdays) {
+        WeekDays weekDays = new  WeekDays();
+        if (weekdays != null) {
+            for (String day : weekdays) {
+                switch (day.toLowerCase()) {
+                    case "monday":
+                        weekDays.setMonday(true); break;
+                    case "tuesday":
+                        weekDays.setTuesday(true); break;
+                    case "wednesday":
+                        weekDays.setWednesday(true); break;
+                    case "thursday":
+                        weekDays.setThursday(true); break;
+                    case "friday":
+                        weekDays.setFriday(true); break;
+                    case "saturday":
+                        weekDays.setSaturday(true); break;
+                    case "sunday":
+                        weekDays.setSunday(true); break;
+                }
+            }
+        }
+        return weekDays;
+    }
+
+    private String[] mapWeekDaysToArray(com.ifpr.thread.stilofit.models.WeekDays weekDays) {
+        if (weekDays == null) return new String[0];
+        java.util.List<String> days = new java.util.ArrayList<>();
+        if (weekDays.isMonday()) days.add("monday");
+        if (weekDays.isTuesday()) days.add("tuesday");
+        if (weekDays.isWednesday()) days.add("wednesday");
+        if (weekDays.isThursday()) days.add("thursday");
+        if (weekDays.isFriday()) days.add("friday");
+        if (weekDays.isSaturday()) days.add("saturday");
+        if (weekDays.isSunday()) days.add("sunday");
+        return days.toArray(new String[0]);
+    }
+
+        public ContractListDTO toList(Contract contract) {
         ContractListDTO dto = new ContractListDTO();
         dto.setId(contract.getId());
         dto.setName(contract.getName());
         dto.setTotalValue(contract.getTotalValue());
         return dto;
-    }
-
-    public static List<ContractListDTO> toList(List<Contract> contracts) {
-        if (contracts == null) {
-            return null;
-        }
-        return contracts.stream()
-                .map(ContractMapper::toList)
-                .collect(Collectors.toList());
     }
 }
