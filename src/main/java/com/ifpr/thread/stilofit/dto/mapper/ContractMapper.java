@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.ifpr.thread.stilofit.dto.list.ContractListDTO;
+
 @Component
 public class ContractMapper {
     public Contract toEntity(ContractRequestDTO dto) {
