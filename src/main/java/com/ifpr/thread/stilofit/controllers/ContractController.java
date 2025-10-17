@@ -4,15 +4,15 @@ import com.ifpr.thread.stilofit.dto.ContractRequestDTO;
 import com.ifpr.thread.stilofit.dto.ContractResponseDTO;
 import com.ifpr.thread.stilofit.services.ContractService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/contracts")
-@RequiredArgsConstructor
+@RequestMapping("/contracts")
+@AllArgsConstructor
 public class ContractController {
     private final ContractService service;
 
