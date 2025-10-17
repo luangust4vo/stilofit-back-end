@@ -3,6 +3,7 @@ package com.ifpr.thread.stilofit.models;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ifpr.thread.stilofit.models.enums.Gender;
 import com.ifpr.thread.stilofit.models.enums.MaritalStatus;
 import com.ifpr.thread.stilofit.models.enums.Role;
@@ -40,6 +41,7 @@ public class Employee {
 
     @Column(name = "password")
     @NotBlank(message = "{validation.password.notblank}")
+    @JsonIgnore
     private String password;
 
     @Column(name = "birth_date")

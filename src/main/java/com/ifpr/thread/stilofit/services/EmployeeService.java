@@ -1,5 +1,6 @@
 package com.ifpr.thread.stilofit.services;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ifpr.thread.stilofit.dto.EmployeeRequestDTO;
@@ -14,6 +15,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public Employee create(EmployeeRequestDTO employeeRequestDTO) {
         if (employeeRepository.existsByCpf(employeeRequestDTO.getCpf())) {
@@ -25,7 +27,7 @@ public class EmployeeService {
         Employee employee = new Employee();
         employee.setName(employeeRequestDTO.getName());
         employee.setEmail(employeeRequestDTO.getEmail());
-        employee.setPassword(employeeRequestDTO.getPassword());
+        employee.setPassword(passwordEncoder.encode(employeeRequestDTO.getPassword())); 
         employee.setBirthDate(employeeRequestDTO.getBirthDate());
         employee.setGender(employeeRequestDTO.getGender());
         employee.setMaritalStatus(employeeRequestDTO.getMaritalStatus());
