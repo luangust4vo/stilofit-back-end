@@ -87,4 +87,12 @@ public class ContractMapper {
         if (weekDays.isSunday()) days.add("sunday");
         return days.toArray(new String[0]);
     }
+
+        public ContractListDTO toList(Contract contract) {
+        ContractListDTO dto = new ContractListDTO();
+        dto.setId(contract.getId());
+        dto.setName(contract.getName());
+        dto.setTotalValue(contract.getTotalValue());
+        return dto;
+    }
 }
