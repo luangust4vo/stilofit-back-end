@@ -2,7 +2,7 @@ package com.ifpr.thread.stilofit.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
+import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -52,4 +52,5 @@ public class EmployeeRequestDTO {
     private Shift shift;
     private LocalTime timeMin;
     private LocalTime timeMax;
+    private List<String> weekDays;
 }

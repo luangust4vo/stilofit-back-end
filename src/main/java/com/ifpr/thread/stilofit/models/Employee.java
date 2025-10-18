@@ -10,6 +10,7 @@ import com.ifpr.thread.stilofit.models.enums.Role;
 import com.ifpr.thread.stilofit.models.enums.Shift;
 import com.ifpr.thread.stilofit.models.enums.Status;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,6 +18,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -117,5 +120,9 @@ public class Employee {
     @Column(name = "time_max")
     @NotNull(message = "{validation.timeMax.notnull}")
     private LocalTime timeMax;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "week_days_id", referencedColumnName = "id")
+    private WeekDays weekDays;
 
 }

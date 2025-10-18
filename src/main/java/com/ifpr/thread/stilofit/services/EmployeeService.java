@@ -8,6 +8,7 @@ import com.ifpr.thread.stilofit.exceptions.CpfAlreadyRegisteredException;
 import com.ifpr.thread.stilofit.exceptions.ProfessionalRegisterAlreadyExistsException;
 import com.ifpr.thread.stilofit.models.Employee;
 import com.ifpr.thread.stilofit.repositories.EmployeeRepository;
+import com.ifpr.thread.stilofit.utils.WeekDaysUtils;
 
 import lombok.AllArgsConstructor;
 
@@ -48,6 +49,7 @@ public class EmployeeService {
         employee.setShift(employeeRequestDTO.getShift());
         employee.setTimeMin(employeeRequestDTO.getTimeMin());
         employee.setTimeMax(employeeRequestDTO.getTimeMax());
+        employee.setWeekDays(WeekDaysUtils.mapWeekDaysFromArray(employeeRequestDTO.getWeekDays())); 
         return employeeRepository.save(employee);
     }
 }

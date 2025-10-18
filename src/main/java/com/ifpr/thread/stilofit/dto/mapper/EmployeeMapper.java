@@ -2,6 +2,7 @@ package com.ifpr.thread.stilofit.dto.mapper;
 
 import com.ifpr.thread.stilofit.dto.EmployeeResponseDTO;
 import com.ifpr.thread.stilofit.models.Employee;
+import com.ifpr.thread.stilofit.utils.WeekDaysUtils;
 
 public class EmployeeMapper {
     public static EmployeeResponseDTO toResponseDTO(Employee employee) {
@@ -30,6 +31,7 @@ public class EmployeeMapper {
         dto.setShift(employee.getShift());
         dto.setTimeMin(employee.getTimeMin());
         dto.setTimeMax(employee.getTimeMax());
+        dto.setWeekDays(WeekDaysUtils.mapWeekDaysToArray(employee.getWeekDays())); 
         return dto;
     }
 }
