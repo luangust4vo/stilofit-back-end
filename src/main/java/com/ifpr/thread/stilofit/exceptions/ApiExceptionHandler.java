@@ -42,6 +42,19 @@ public class ApiExceptionHandler {
                 return new ResponseEntity<>(error, HttpStatus.CONFLICT);
         }
 
+        @ExceptionHandler(ProfessionalRegisterAlreadyExistsException.class)
+        public ResponseEntity<ErrorMessage> handleProfessionalRegisterAlreadyExists(
+                        ProfessionalRegisterAlreadyExistsException ex,
+                        HttpServletRequest request) {
+
+                log.error("Conflito de Registro Profissional: {}", ex.getMessage());
+                ErrorMessage error = new ErrorMessage(
+                                request,
+                                HttpStatus.CONFLICT,
+                                ex.getMessage());
+                return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+        }
+
        @ExceptionHandler(NotFoundException.class)
         public ResponseEntity<ErrorMessage> handleNotFoundException(
                         NotFoundException ex,
