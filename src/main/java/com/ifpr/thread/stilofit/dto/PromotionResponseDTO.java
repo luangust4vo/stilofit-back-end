@@ -1,15 +1,10 @@
 package com.ifpr.thread.stilofit.dto;
 
-import com.ifpr.thread.stilofit.models.enums.DiscountType;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-
-public class PromotionResponseDTO {
-    private String name;
-    private String description;
-    @Enumerated(EnumType.STRING)
-    private DiscountType discountType;
-    private Double value;
-    private Integer timesApplied;
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class PromotionResponseDTO extends DiscountResponseDTO {
+    
 }
