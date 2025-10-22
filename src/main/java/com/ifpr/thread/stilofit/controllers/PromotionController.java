@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.data.domain.Page;
@@ -68,6 +69,18 @@ public class PromotionController {
     @GetMapping("/list-all-promotions")
     public ResponseEntity<Page<PromotionListDTO>> findAll(@PageableDefault(size = 30, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<Promotion> promotions = promotionService.findAll(pageable);
+        Page<PromotionListDTO> promotionResponses = promotions.map(PromotionMapper::toList);
+        return ResponseEntity.ok(promotionResponses);
+    }
+
+    @Operation(summary = "Find promotions by name", description = "Retrieves a paginated list of promotions by name.", responses = {
+        @ApiResponse(responseCode = "200", description = "Promotions found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PromotionResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "No promotions found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
+    })
+    @GetMapping("/list-promotions-by-name")
+    public ResponseEntity<Page<PromotionListDTO>> findByName(@PageableDefault(size = 30, sort = "name", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(name = "name", required = false, defaultValue = "") String name) {
+        Page<Promotion> promotions = promotionService.findByName(pageable, name);
         Page<PromotionListDTO> promotionResponses = promotions.map(PromotionMapper::toList);
         return ResponseEntity.ok(promotionResponses);
     }
