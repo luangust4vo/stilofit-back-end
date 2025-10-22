@@ -11,7 +11,6 @@ public class EmployeeMapper {
         dto.setId(employee.getId());
         dto.setName(employee.getName());
         dto.setEmail(employee.getEmail());
-        dto.setPassword(employee.getPassword());
         dto.setBirthDate(employee.getBirthDate());
         dto.setGender(employee.getGender());
         dto.setMaritalStatus(employee.getMaritalStatus());
