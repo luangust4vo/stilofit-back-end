@@ -1,10 +1,13 @@
 package com.ifpr.thread.stilofit.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ifpr.thread.stilofit.dto.EmployeeRequestDTO;
 import com.ifpr.thread.stilofit.exceptions.CpfAlreadyRegisteredException;
+import com.ifpr.thread.stilofit.exceptions.NotFoundException;
 import com.ifpr.thread.stilofit.exceptions.ProfessionalRegisterAlreadyExistsException;
 import com.ifpr.thread.stilofit.models.Employee;
 import com.ifpr.thread.stilofit.repositories.EmployeeRepository;
@@ -51,5 +54,14 @@ public class EmployeeService {
         employee.setTimeMax(employeeRequestDTO.getTimeMax());
         employee.setWeekDays(WeekDaysUtils.mapWeekDaysFromArray(employeeRequestDTO.getWeekDays())); 
         return employeeRepository.save(employee);
+    }
+
+    public Employee findById(Long id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Funcionário não encontrado"));
+    }
+
+    public Page<Employee> findAll(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
     }
 }

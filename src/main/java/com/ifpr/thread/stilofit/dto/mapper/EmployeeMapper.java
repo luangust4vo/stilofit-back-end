@@ -1,6 +1,7 @@
 package com.ifpr.thread.stilofit.dto.mapper;
 
 import com.ifpr.thread.stilofit.dto.EmployeeResponseDTO;
+import com.ifpr.thread.stilofit.dto.list.EmployeeListDTO;
 import com.ifpr.thread.stilofit.models.Employee;
 import com.ifpr.thread.stilofit.utils.WeekDaysUtils;
 
@@ -10,7 +11,6 @@ public class EmployeeMapper {
         dto.setId(employee.getId());
         dto.setName(employee.getName());
         dto.setEmail(employee.getEmail());
-        dto.setPassword(employee.getPassword());
         dto.setBirthDate(employee.getBirthDate());
         dto.setGender(employee.getGender());
         dto.setMaritalStatus(employee.getMaritalStatus());
@@ -32,6 +32,13 @@ public class EmployeeMapper {
         dto.setTimeMin(employee.getTimeMin());
         dto.setTimeMax(employee.getTimeMax());
         dto.setWeekDays(WeekDaysUtils.mapWeekDaysToArray(employee.getWeekDays())); 
+        return dto;
+    }
+
+    public static EmployeeListDTO toList(Employee employee) {
+        EmployeeListDTO dto = new EmployeeListDTO();
+        dto.setId(employee.getId());
+        dto.setName(employee.getName());
         return dto;
     }
 }
