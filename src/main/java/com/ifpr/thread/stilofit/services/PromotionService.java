@@ -30,7 +30,7 @@ public class PromotionService {
 
     public Promotion findById(Long id) {
         return promotionRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Promotion não encontrado com id: " + id));
+                .orElseThrow(() -> new NotFoundException("Promoção não encontrada com id: " + id));
     }
 
     public Page<Promotion> findAll(Pageable pageable) {
@@ -39,7 +39,7 @@ public class PromotionService {
 
     public Promotion update(Long id, PromotionRequestDTO promotionRequestDTO) {
         Promotion existPromotion = promotionRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Promotion não encontrado com id: " + id));
+                .orElseThrow(() -> new NotFoundException("Promoção não encontrada com id: " + id));
         existPromotion.setName(promotionRequestDTO.getName());
         existPromotion.setDescription(promotionRequestDTO.getDescription());
         existPromotion.setDiscountType(promotionRequestDTO.getDiscountType());
