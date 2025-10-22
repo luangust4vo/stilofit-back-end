@@ -8,6 +8,8 @@ import lombok.Data;
 
 @Data
 public class DiscountResponseDTO {
+
+    private Long id;
     private String name;
     private String description;
     @Enumerated(EnumType.STRING)
