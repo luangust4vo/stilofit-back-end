@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ifpr.thread.stilofit.dto.PromotionRequestDTO;
 import com.ifpr.thread.stilofit.exceptions.NotFoundException;
+import com.ifpr.thread.stilofit.models.Client;
 import com.ifpr.thread.stilofit.models.Promotion;
 import com.ifpr.thread.stilofit.repositories.PromotionRepository;
 
@@ -35,6 +36,10 @@ public class PromotionService {
 
     public Page<Promotion> findAll(Pageable pageable) {
         return promotionRepository.findAll(pageable);
+    }
+
+    public Page<Promotion> findByName(Pageable pageable, String name) {
+        return promotionRepository.findByName(pageable, name);
     }
 
     public Promotion update(Long id, PromotionRequestDTO promotionRequestDTO) {
