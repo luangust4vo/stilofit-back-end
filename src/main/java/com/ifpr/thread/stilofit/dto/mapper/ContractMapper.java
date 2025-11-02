@@ -1,12 +1,8 @@
 package com.ifpr.thread.stilofit.dto.mapper;
 
-import java.util.List;
-
 import com.ifpr.thread.stilofit.dto.ContractRequestDTO;
 import com.ifpr.thread.stilofit.dto.ContractResponseDTO;
 import com.ifpr.thread.stilofit.models.Contract;
-
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -47,24 +43,15 @@ public class ContractMapper {
         dto.setClassRoms(contract.getClassRoms());
         dto.setTimeMin(contract.getTimeMin());
         dto.setTimeMax(contract.getTimeMax());
-        dto.setWeekdays(contract.getWeekdays());
+        dto.setWeekdays(contract.getWeekdays() == null ? null : contract.getWeekdays().toArray(new String[0]));
         return dto;
     }
 
-    public static ContractListDTO toList(Contract contract) {
+        public ContractListDTO toList(Contract contract) {
         ContractListDTO dto = new ContractListDTO();
         dto.setId(contract.getId());
         dto.setName(contract.getName());
         dto.setTotalValue(contract.getTotalValue());
         return dto;
-    }
-
-    public static List<ContractListDTO> toList(List<Contract> contracts) {
-        if (contracts == null) {
-            return null;
-        }
-        return contracts.stream()
-                .map(ContractMapper::toList)
-                .collect(Collectors.toList());
     }
 }
