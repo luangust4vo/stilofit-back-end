@@ -41,8 +41,9 @@ public class ContractService {
     }
 
     public ContractResponseDTO update(Long id, ContractRequestDTO dto) {
-        Contract contract = repository.findById(id)
+        repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Contrato não encontrado"));
+                
         Contract updated = mapper.toEntity(dto);
         updated.setId(id);
         updated = repository.save(updated);
