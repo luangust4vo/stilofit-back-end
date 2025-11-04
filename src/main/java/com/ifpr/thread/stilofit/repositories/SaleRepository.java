@@ -4,14 +4,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.lang.NonNull;
+import org.springframework.data.repository.query.Param;
 
 import com.ifpr.thread.stilofit.models.Client;
+import com.ifpr.thread.stilofit.models.Sale;
 
-public interface ClientRepository extends JpaRepository<Client, Long> {
-    boolean existsByCpf(String cpf);  
+public interface SaleRepository extends JpaRepository<Sale, Long> {
 
-    @Query("SELECT c FROM Client c ORDER BY c.name ASC")
-    @NonNull
-    Page<Client> findAll(@NonNull Pageable pageable);
+    @Query("SELECT s FROM Sale s WHERE s.client = :client")
+    Page<Sale> findByClient(@Param("client") Client client, Pageable pageable);
 }
