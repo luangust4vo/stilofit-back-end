@@ -3,7 +3,7 @@ package com.ifpr.thread.stilofit.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "contract")
@@ -41,13 +41,13 @@ public class Contract {
     @Column(name = "type_expire", length = 20)
     private String typeExpire;
 
-    @ElementCollection
-    @CollectionTable(
-        name = "contract_classrooms",
-        joinColumns = @JoinColumn(name = "contract_id")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "contract_classroom_join", // Tabela de junção para o @ManyToMany
+        joinColumns = @JoinColumn(name = "contract_id"),
+        inverseJoinColumns = @JoinColumn(name = "classroom_id")
     )
-    @Column(name = "classroom", length = 100)
-    private List<String> classRoms;
+    private Set<Classroom> classrooms;
 
     @Column(name = "time_min", length = 10)
     private String timeMin;
@@ -55,11 +55,7 @@ public class Contract {
     @Column(name = "time_max", length = 10)
     private String timeMax;
 
-    @ElementCollection
-    @CollectionTable(
-        name = "contract_weekdays",
-        joinColumns = @JoinColumn(name = "contract_id")
-    )
-    @Column(name = "weekday", length = 20)
-    private List<String> weekdays;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "weekdays_id", referencedColumnName = "id")
+    private WeekDays weekdays;
 }

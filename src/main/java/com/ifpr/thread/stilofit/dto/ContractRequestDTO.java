@@ -33,7 +33,7 @@ public class ContractRequestDTO {
     @NotBlank
     private String typeExpire;
 
-    private List<String> classRoms;
+    private List<String> classRooms;
     private String timeMin;
     private String timeMax;
     private List<String> weekdays;
