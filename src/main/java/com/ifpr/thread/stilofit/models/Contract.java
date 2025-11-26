@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 import com.ifpr.thread.stilofit.models.enums.ContractStatus;
 import com.ifpr.thread.stilofit.models.enums.TypeExpire;
@@ -57,13 +57,13 @@ public class Contract {
     @Enumerated(EnumType.STRING)
     private TypeExpire typeExpire;
 
-    @ElementCollection
-    @CollectionTable(
-        name = "contract_classrooms",
-        joinColumns = @JoinColumn(name = "contract_id")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "contract_classroom_join", // Tabela de junção para o @ManyToMany
+        joinColumns = @JoinColumn(name = "contract_id"),
+        inverseJoinColumns = @JoinColumn(name = "classroom_id")
     )
-    @Column(name = "classroom", length = 100)
-    private List<String> classRoms;
+    private Set<Classroom> classrooms;
 
     @Column(name = "time_min", length = 10)
     private LocalTime timeMin;

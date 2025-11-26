@@ -22,7 +22,7 @@ public class ContractMapper {
         contract.setInstallmentsValue(dto.getInstallmentsValue());
         contract.setExpire(dto.getExpire());
         contract.setTypeExpire(dto.getTypeExpire());
-        contract.setClassRoms(dto.getClassRoms());
+        // contract.setClassRooms(dto.getClassRooms());
         contract.setTimeMin(dto.getTimeMin());
         contract.setTimeMax(dto.getTimeMax());
         contract.setWeekDays(WeekDaysUtils.mapWeekDaysFromArray(dto.getWeekDays()));
@@ -41,7 +41,7 @@ public class ContractMapper {
         dto.setInstallmentsValue(contract.getInstallmentsValue());
         dto.setExpire(contract.getExpire());
         dto.setTypeExpire(contract.getTypeExpire());
-        dto.setClassRoms(contract.getClassRoms());
+        dto.setClassRoms(contract.getClassRooms());
         dto.setTimeMin(contract.getTimeMin());
         dto.setTimeMax(contract.getTimeMax());
         dto.setWeekDays(WeekDaysUtils.mapWeekDaysToArray(contract.getWeekDays()));
