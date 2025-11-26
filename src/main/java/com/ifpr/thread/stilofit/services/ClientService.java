@@ -2,6 +2,7 @@ package com.ifpr.thread.stilofit.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import com.ifpr.thread.stilofit.dto.ClientRequestDTO;
@@ -20,9 +21,11 @@ public class ClientService {
 
     public Client create(ClientRequestDTO clientRequestDTO) {
         validateClientFields(clientRequestDTO);
+
         if (clientRepository.existsByCpf(clientRequestDTO.getCpf())) {
             throw new CpfAlreadyRegisteredException("CPF já cadastrado");
         }
+
         Client client = new Client();
         client.setName(clientRequestDTO.getName());
         client.setBirthDate(clientRequestDTO.getBirthDate());
@@ -39,10 +42,8 @@ public class ClientService {
         client.setEmergencieName(clientRequestDTO.getEmergencieName());
         client.setEmergenciePhone(clientRequestDTO.getEmergenciePhone());
         client.setEmergencieObs(clientRequestDTO.getEmergencieObs());
-
         client.setContactEmail(clientRequestDTO.getContactEmail());
         client.setContactPhone(clientRequestDTO.getContactPhone());
-
         client.setResidenceType(clientRequestDTO.getResidenceType());
         client.setCep(clientRequestDTO.getCep());
         client.setAddress(clientRequestDTO.getAddress());
@@ -52,25 +53,27 @@ public class ClientService {
         client.setCity(clientRequestDTO.getCity());
         client.setState(clientRequestDTO.getState());
         client.setAddObs(clientRequestDTO.getAddObs());
-
         client.setConsultant(clientRequestDTO.getConsultant());
+
         Client clientSave = clientRepository.save(client);
         return clientSave;
     }
 
-    public Client findById(Long id) {
+    public Client findById(@NonNull Long id) {
         return clientRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Cliente não encontrado com id: " + id));
     }
 
-    public Page<Client> findAll(Pageable pageable) {
+    public Page<Client> findAll(@NonNull Pageable pageable) {
         return clientRepository.findAll(pageable);
     }
 
-    public Client update(Long id, ClientRequestDTO clientRequestDTO) {
+    public Client update(@NonNull Long id, ClientRequestDTO clientRequestDTO) {
         validateClientFields(clientRequestDTO);
+
         Client existClient = clientRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Cliente não encontrado com id: " + id));
+
         existClient.setName(clientRequestDTO.getName());
         existClient.setBirthDate(clientRequestDTO.getBirthDate());
         existClient.setGender(clientRequestDTO.getGender());
@@ -85,10 +88,8 @@ public class ClientService {
         existClient.setEmergencieName(clientRequestDTO.getEmergencieName());
         existClient.setEmergenciePhone(clientRequestDTO.getEmergenciePhone());
         existClient.setEmergencieObs(clientRequestDTO.getEmergencieObs());
-
         existClient.setContactEmail(clientRequestDTO.getContactEmail());
         existClient.setContactPhone(clientRequestDTO.getContactPhone());
-
         existClient.setResidenceType(clientRequestDTO.getResidenceType());
         existClient.setCep(clientRequestDTO.getCep());
         existClient.setAddress(clientRequestDTO.getAddress());
@@ -98,8 +99,8 @@ public class ClientService {
         existClient.setCity(clientRequestDTO.getCity());
         existClient.setState(clientRequestDTO.getState());
         existClient.setAddObs(clientRequestDTO.getAddObs());
-
         existClient.setConsultant(clientRequestDTO.getConsultant());
+
         Client updateClient = clientRepository.save(existClient);
         return updateClient;
     }
@@ -109,7 +110,7 @@ public class ClientService {
             throw new NotBlankException("O campo 'nome' é obrigatório.");
         }
         if (clientRequestDTO.getBirthDate() == null) {
-            throw new NotBlankException("O campo 'data de nascimentp' é obrigatório.");
+            throw new NotBlankException("O campo 'data de nascimento' é obrigatório.");
         }
         if (clientRequestDTO.getGender() == null) {
             throw new NotBlankException("O campo 'gênero' é obrigatório.");

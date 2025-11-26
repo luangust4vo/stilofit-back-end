@@ -11,12 +11,12 @@ import com.ifpr.thread.stilofit.utils.WeekDaysUtils;
 
 @Component
 public class ContractMapper {
-    public Contract toEntity(ContractRequestDTO dto) {
+    public static Contract toEntity(ContractRequestDTO dto) {
         Contract contract = new Contract();
         contract.setName(dto.getName());
         contract.setStatus(dto.getStatus());
         contract.setTemplate(dto.getTemplate());
-        contract.setInstallmentable(dto.getInstallmentable());
+        contract.setInstallmentable(dto.isInstallmentable());
         contract.setInstallments(dto.getInstallments());
         contract.setTotalValue(dto.getTotalValue());
         contract.setInstallmentsValue(dto.getInstallmentsValue());
@@ -25,34 +25,38 @@ public class ContractMapper {
         // contract.setClassRooms(dto.getClassRooms());
         contract.setTimeMin(dto.getTimeMin());
         contract.setTimeMax(dto.getTimeMax());
-        contract.setWeekdays(WeekDaysUtils.mapWeekDaysFromArray(dto.getWeekdays()));
+        contract.setWeekDays(WeekDaysUtils.mapWeekDaysFromArray(dto.getWeekDays()));
         return contract;
     }
 
-    public ContractResponseDTO toDTO(Contract contract) {
+    public static ContractResponseDTO toDTO(Contract contract) {
         ContractResponseDTO dto = new ContractResponseDTO();
         dto.setId(contract.getId());
         dto.setName(contract.getName());
         dto.setStatus(contract.getStatus());
         dto.setTemplate(contract.getTemplate());
-        dto.setInstallmentable(contract.getInstallmentable());
+        dto.setInstallmentable(contract.isInstallmentable());
         dto.setInstallments(contract.getInstallments());
         dto.setTotalValue(contract.getTotalValue());
         dto.setInstallmentsValue(contract.getInstallmentsValue());
         dto.setExpire(contract.getExpire());
         dto.setTypeExpire(contract.getTypeExpire());
-        // dto.setClassRoms(contract.getClassRooms());
+        dto.setClassRoms(contract.getClassRooms());
         dto.setTimeMin(contract.getTimeMin());
         dto.setTimeMax(contract.getTimeMax());
-        dto.setWeekdays(WeekDaysUtils.mapWeekDaysToArray(contract.getWeekdays()));
+        dto.setWeekDays(WeekDaysUtils.mapWeekDaysToArray(contract.getWeekDays()));
         return dto;
     }
 
-        public ContractListDTO toList(Contract contract) {
+    public static ContractListDTO toList(Contract contract) {
         ContractListDTO dto = new ContractListDTO();
         dto.setId(contract.getId());
         dto.setName(contract.getName());
         dto.setTotalValue(contract.getTotalValue());
+        dto.setInstallments(contract.getInstallments());
+        dto.setInstallmentsValue(contract.getInstallmentsValue());
+        dto.setTypeExpire(contract.getTypeExpire());
+        dto.setExpire(contract.getExpire());
         return dto;
     }
 }

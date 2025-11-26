@@ -6,5 +6,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PromotionResponseDTO extends DiscountResponseDTO {
-    
+
 }

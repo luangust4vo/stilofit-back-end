@@ -2,6 +2,7 @@ package com.ifpr.thread.stilofit.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import com.ifpr.thread.stilofit.dto.PromotionRequestDTO;
@@ -28,12 +29,12 @@ public class PromotionService {
         return promotionSave;
     }
 
-    public Promotion findById(Long id) {
+    public Promotion findById(@NonNull Long id) {
         return promotionRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Promoção não encontrada com id: " + id));
     }
 
-    public Page<Promotion> findAll(Pageable pageable) {
+    public Page<Promotion> findAll(@NonNull Pageable pageable) {
         return promotionRepository.findAll(pageable);
     }
 
@@ -41,15 +42,17 @@ public class PromotionService {
         return promotionRepository.findByName(pageable, name);
     }
 
-    public Promotion update(Long id, PromotionRequestDTO promotionRequestDTO) {
+    public Promotion update(@NonNull Long id, PromotionRequestDTO promotionRequestDTO) {
         Promotion existPromotion = promotionRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Promoção não encontrada com id: " + id));
+
         existPromotion.setName(promotionRequestDTO.getName());
         existPromotion.setDescription(promotionRequestDTO.getDescription());
         existPromotion.setDiscountType(promotionRequestDTO.getDiscountType());
         existPromotion.setValue(promotionRequestDTO.getValue());
         existPromotion.setTimesApplied(promotionRequestDTO.getTimesApplied());
         Promotion updatePromotion = promotionRepository.save(existPromotion);
+
         return updatePromotion;
     }
 }

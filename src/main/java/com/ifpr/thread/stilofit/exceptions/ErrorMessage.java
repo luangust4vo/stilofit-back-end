@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.ToString;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
@@ -45,7 +46,7 @@ public class ErrorMessage {
         addErrors(result, messageSource, request.getLocale());
     }
 
-    private void addErrors(BindingResult result, MessageSource messageSource, Locale locale) {
+    private void addErrors(BindingResult result, MessageSource messageSource, @NonNull Locale locale) {
         this.errors = new HashMap<>();
         for (FieldError fieldError : result.getFieldErrors()) {
             String message = messageSource.getMessage(fieldError, locale);

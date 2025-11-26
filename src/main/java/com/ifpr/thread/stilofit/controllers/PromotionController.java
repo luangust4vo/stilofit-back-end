@@ -1,7 +1,11 @@
 package com.ifpr.thread.stilofit.controllers;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,18 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-
 import com.ifpr.thread.stilofit.dto.PromotionRequestDTO;
 import com.ifpr.thread.stilofit.dto.PromotionResponseDTO;
 import com.ifpr.thread.stilofit.dto.list.PromotionListDTO;
 import com.ifpr.thread.stilofit.dto.mapper.PromotionMapper;
 import com.ifpr.thread.stilofit.exceptions.ErrorMessage;
-import com.ifpr.thread.stilofit.services.PromotionService;
 import com.ifpr.thread.stilofit.models.Promotion;
+import com.ifpr.thread.stilofit.services.PromotionService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -34,7 +33,6 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/promotions")
-@CrossOrigin("http://localhost:5173")
 public class PromotionController {
 
     private final PromotionService promotionService;
@@ -55,7 +53,7 @@ public class PromotionController {
         @ApiResponse(responseCode = "200", description = "Promotion found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PromotionResponseDTO.class))),
         @ApiResponse(responseCode = "404", description = "Promotion not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),})
     @GetMapping("/find-by-id/{id}")
-    public ResponseEntity<PromotionResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<PromotionResponseDTO> findById(@NonNull @PathVariable Long id) {
         Promotion promotion = promotionService.findById(id);
         PromotionResponseDTO promotionResponse = PromotionMapper.toResponse(promotion);
         return ResponseEntity.ok(promotionResponse);
@@ -67,7 +65,7 @@ public class PromotionController {
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
     })
     @GetMapping("/list-all")
-    public ResponseEntity<Page<PromotionListDTO>> findAll(@PageableDefault(size = 30, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
+    public ResponseEntity<Page<PromotionListDTO>> findAll(@NonNull @PageableDefault(size = 30, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<Promotion> promotions = promotionService.findAll(pageable);
         Page<PromotionListDTO> promotionResponses = promotions.map(PromotionMapper::toList);
         return ResponseEntity.ok(promotionResponses);
@@ -93,7 +91,7 @@ public class PromotionController {
         @ApiResponse(responseCode = "400", description = "Invalid input data", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))})
     @PutMapping("/{id}")
-    public ResponseEntity<PromotionResponseDTO> update(@PathVariable Long id, @RequestBody PromotionRequestDTO promotionRequestDTO) {
+    public ResponseEntity<PromotionResponseDTO> update(@NonNull @PathVariable Long id, @RequestBody PromotionRequestDTO promotionRequestDTO) {
         Promotion updatedPromotion = promotionService.update(id, promotionRequestDTO);
         PromotionResponseDTO promotionResponse = PromotionMapper.toResponse(updatedPromotion);
         return ResponseEntity.ok(promotionResponse);

@@ -5,9 +5,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +33,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("/employees")
 public class EmployeeController {
+
     private final EmployeeService employeeService;
 
     @Operation(summary = "Create a new client", description = "Creates a new client with the provided details.", responses = {
@@ -49,7 +52,7 @@ public class EmployeeController {
         @ApiResponse(responseCode = "200", description = "Employee found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeResponseDTO.class))),
         @ApiResponse(responseCode = "404", description = "Employee not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),})
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<EmployeeResponseDTO> findById(@NonNull @PathVariable Long id) {
         Employee employee = employeeService.findById(id);
         EmployeeResponseDTO employeeResponse = EmployeeMapper.toResponseDTO(employee);
         return ResponseEntity.ok(employeeResponse);
@@ -61,9 +64,23 @@ public class EmployeeController {
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
     })
     @GetMapping("/list-all-employees")
-    public ResponseEntity<Page<EmployeeListDTO>> findAll(@PageableDefault(size = 30, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
+    public ResponseEntity<Page<EmployeeListDTO>> findAll(@NonNull @PageableDefault(size = 30, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<Employee> employees = employeeService.findAll(pageable);
         Page<EmployeeListDTO> employeeResponses = employees.map(EmployeeMapper::toList);
         return ResponseEntity.ok(employeeResponses);
+    }
+
+    @Operation(summary = "Update an existing employee", description = "Update an existing employee with the provided details", responses = {
+        @ApiResponse(responseCode = "200", description = "Employee updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EmployeeResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "Employee not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+        @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+        @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+        @ApiResponse(responseCode = "400", description = "Invalid input data", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))})
+    @PutMapping("/{id}")
+    public ResponseEntity<EmployeeResponseDTO> update(@NonNull @PathVariable Long id, @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+        Employee updatedEmployee = employeeService.update(id, employeeRequestDTO);
+        EmployeeResponseDTO employeeResponse = EmployeeMapper.toResponseDTO(updatedEmployee);
+        return ResponseEntity.ok(employeeResponse);
     }
 }

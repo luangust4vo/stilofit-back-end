@@ -31,7 +31,7 @@ public class EmployeeMapper {
         dto.setShift(employee.getShift());
         dto.setTimeMin(employee.getTimeMin());
         dto.setTimeMax(employee.getTimeMax());
-        dto.setWeekDays(WeekDaysUtils.mapWeekDaysToArray(employee.getWeekDays())); 
+        dto.setWeekDays(WeekDaysUtils.mapWeekDaysToArray(employee.getWeekDays()));
         return dto;
     }
 
@@ -39,6 +39,9 @@ public class EmployeeMapper {
         EmployeeListDTO dto = new EmployeeListDTO();
         dto.setId(employee.getId());
         dto.setName(employee.getName());
+        dto.setRole(employee.getRole());
+        dto.setStatus(employee.getStatus());
+        dto.setShift(employee.getShift());
         return dto;
     }
 }
